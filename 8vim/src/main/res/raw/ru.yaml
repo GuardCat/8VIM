@@ -56,30 +56,52 @@ layers:
         right:
           parts:
             bottom:
-              - lower_case: "!"
+              - lower_case: "\\"
+              - lower_case: "|"
+              - lower_case: "/"
+              - lower_case: "?"
             top:
-              - lower_case: "."
-              - lower_case: ё
+              - lower_case: "ё"
+              - lower_case: "«"
+              - lower_case: "»"
+              - lower_case: "~"
         top:
           parts:
             right:
-              - lower_case: "…"
-              - lower_case: '"'
+              - lower_case: "("
+              - lower_case: ")"
+              - lower_case: "["
+              - lower_case: "]"
             left:
-              - lower_case: ":"
-              - lower_case: "/"
+              - lower_case: "{"
+              - lower_case: "}"
+              - lower_case: "<"
+              - lower_case: ">"
         left:
           parts:
-            bottom:
-              - lower_case: "—"
-              - lower_case: "*"
             top:
-              - lower_case: ";" 
-              - lower_case: ъ
+              - lower_case: "'"
+              - lower_case: "\""
+              - lower_case: "ъ"
+              - lower_case: "`"
+            bottom:
+              - lower_case: "-"
+                upper_case: "—"
+              - lower_case: "_"
+              - lower_case: "="
+              - lower_case: "+"
         bottom:
           parts:
             left:
-              - lower_case: "-"
+              - lower_case: "$"
+                upper_case: "₽"
+              - lower_case: "#"
+                upper_case: "№"
               - lower_case: "@"
+              - lower_case: "*"
+                upper_case: "&"
             right:
-              - lower_case: "?"
+              - lower_case: "!"
+              - lower_case: "."
+              - lower_case: ":"
+              - lower_case: ";"
