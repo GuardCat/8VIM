@@ -1,0 +1,27 @@
+name: Build custom 8Vim APK
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Build debug APK
+        run: ./gradlew :8vim:assembleDebug --stacktrace
+      - uses: actions/upload-artifact@v4
+        with:
+          name: 8vim-two-languages-debug-apk
+          path: 8vim/build/outputs/apk/debug/*.apk
+          if-no-files-found: error
+          retention-days: 14
