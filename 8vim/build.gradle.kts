@@ -80,8 +80,8 @@ android {
             versionName = "pr-$prNumber+${(versionProps["SHA"] as String)}"
         } else {
             val rcValue = if (versionRc > 0) 100 - versionRc else 0
-            versionCode =
-                versionMajor * 1000000 + 10000 * versionMinor + 100 * versionPatch - rcValue
+            versionCode = System.getenv("VIM8_CUSTOM_VERSION_CODE")?.toIntOrNull()
+                ?: (versionMajor * 1000000 + 10000 * versionMinor + 100 * versionPatch - rcValue)
         }
         versionName = "$versionMajor.$versionMinor.$versionPatch"
 
@@ -138,6 +138,13 @@ android {
             if (System.getenv("VIM8_BUILD_KEYSTORE_FILE") != null) {
                 signingConfig = signingConfigs.getByName("release")
             }
+        }
+
+        create("custom") {
+            initWith(getByName("release"))
+            applicationIdSuffix = ".custom"
+            versionNameSuffix = "-custom.${System.getenv("VIM8_CUSTOM_VERSION_CODE") ?: "local"}"
+            resValue("string", "app_name", "8Vim Custom")
         }
 
         create("rc") {
