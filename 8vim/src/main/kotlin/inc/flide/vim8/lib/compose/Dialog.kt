@@ -57,9 +57,8 @@ private class DialogScopeImpl : DialogScope {
     @Composable
     fun Render() {
         val currentIndex = index()
-        var selectedIndex by remember { mutableIntStateOf(currentIndex) }
+        var selectedIndex by remember(currentIndex, openAlertDialog) { mutableIntStateOf(currentIndex) }
         if (openAlertDialog) {
-            selectedIndex = currentIndex
             AlertDialog(
                 title = { Text(title) },
                 onDismissRequest = { openAlertDialog = false },
