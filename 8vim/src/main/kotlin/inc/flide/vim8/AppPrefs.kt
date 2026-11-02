@@ -64,6 +64,18 @@ class AppPrefs : PreferenceModel(9) {
             serde = LayoutSerDe
         )
 
+        val primary = custom(
+            key = "prefs_layout_primary",
+            default = EmbeddedLayout("en"),
+            serde = LayoutSerDe
+        )
+
+        val secondary = custom(
+            key = "prefs_layout_secondary",
+            default = EmbeddedLayout("ru"),
+            serde = LayoutSerDe
+        )
+
         inner class Custom {
             val history = stringSet(
                 key = "prefs_layout_custom_history",
