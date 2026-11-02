@@ -76,6 +76,9 @@
     <string name="settings__home__ime_not_selected">{app_name} is not selected as the default input method.\nClick here to resolve this issue.</string>
 
     <string name="settings__layouts__title" comment="Title of Layout screen">Layouts</string>
+    <string name="settings__layouts__primary__title">Language 1</string>
+    <string name="settings__layouts__secondary__title">Language 2</string>
+    <string name="switch_between_languages_button_content_description">Switch language</string>
     <string name="settings__layouts__select__title">Select language layout</string>
     <string name="settings__layouts__select__summary">Chosen language will decide which diacritics
         can be entered </string>
