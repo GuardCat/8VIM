@@ -18,6 +18,29 @@ class AvailableLayouts(private val layoutLoader: LayoutLoader, private val conte
     var index = -1
         private set
 
+    fun indexOfLayout(layout: Layout<*>): Int =
+        layoutsWithKeyboardData.keys.indexOf(layout).coerceAtLeast(0)
+
+    fun displayNameFor(layout: Layout<*>): String =
+        layoutsWithKeyboardData[layout] ?: layout.defaultName(context)
+
+    fun selectPreferredLayout(which: Int, isPrimary: Boolean) {
+        layoutsWithKeyboardData.keys.elementAtOrNone(which)
+            .onSome { layout ->
+                layout.loadKeyboardData(layoutLoader, context)
+                    .getOrNone()
+                    .onNone {
+                        if (layout is CustomLayout) removeFromHistory(layout.path.toString())
+                    }
+                    .onSome {
+                        if (isPrimary) prefs.layout.primary.set(layout)
+                        else prefs.layout.secondary.set(layout)
+                        prefs.layout.current.set(layout)
+                        index = which
+                    }
+            }
+    }
+
     init {
         val embeddedLayoutsWithName = embeddedLayouts(layoutLoader, context)
         embeddedLayoutsSize = embeddedLayoutsWithName.size
@@ -38,6 +61,9 @@ class AvailableLayouts(private val layoutLoader: LayoutLoader, private val conte
         val history = LinkedHashSet(historyPref.get())
         history.remove(path)
         historyPref.set(history)
+        val removedLayout = path.toCustomLayout()
+        if (prefs.layout.primary.get() == removedLayout) prefs.layout.primary.reset()
+        if (prefs.layout.secondary.get() == removedLayout) prefs.layout.secondary.reset()
         prefs.layout.current.reset()
         layoutsWithKeyboardData
             .toList()
