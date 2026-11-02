@@ -56,10 +56,10 @@ layers:
         right:
           parts:
             bottom:
+              - lower_case: "?"
               - lower_case: "\\"
               - lower_case: "|"
               - lower_case: "/"
-              - lower_case: "?"
             top:
               - lower_case: "ё"
               - lower_case: "«"
