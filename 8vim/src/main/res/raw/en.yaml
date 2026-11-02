@@ -92,9 +92,10 @@ layers:
               - lower_case: "`"
             bottom:
               - lower_case: "-"
-                upper_case: "—"
-              - lower_case: "_"
+                upper_case: "–"
+              - lower_case: "—"
               - lower_case: "="
+                upper_case: "_"
               - lower_case: "+"
         bottom:
           parts:
