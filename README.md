@@ -1,4 +1,21 @@
-# 8Vim
+# 8Vim — two-language fork
+
+This is an **unofficial fork** of [8Vim](https://github.com/8VIM/8VIM), a gesture-based Android keyboard inspired by 8pen and Vim. It keeps the original circular input method and adds quick switching between **two user-selected keyboard layouts**.
+
+## Changes in this fork
+
+- **Choose two layouts:** open **8Vim settings → Layouts** and select **Language 1** and **Language 2** from the built-in or imported YAML layouts. Defaults: English and Russian.
+- **Switch with one tap:** use the language icon in the keyboard's side toolbar to alternate between your two chosen layouts.
+- **Remember your choices:** both selected layouts and the currently active layout are saved.
+- **Android navigation bar spacing:** keep the embedded keyboard's gesture area above the system navigation bar, including on newer Android versions.
+- **Cloud-buildable APK:** build a separate debug app using [Build custom 8Vim APK](https://github.com/GuardCat/8VIM/actions/workflows/manual-debug-apk.yaml). Run the workflow on `master`, then download the APK from the run's **Artifacts** section. You may need to enable Actions for your fork.
+
+The debug build installs separately from the original 8Vim. This fork is not an official release of the upstream project.
+
+---
+
+## Original 8Vim project
+
 
 [![Project Dashboard](https://sourcespy.com/shield.svg)](https://sourcespy.com/github/flide8vim/)
 
