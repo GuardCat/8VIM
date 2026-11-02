@@ -9,6 +9,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -180,7 +181,11 @@ class Vim8ImeService : LifecycleInputMethodService() {
                     LocalInputFeedbackController provides inputFeedbackController
                 ) {
                     Surface(
-                        modifier = Modifier.height(keyboardHeight),
+                        modifier = Modifier
+                            // IME content must remain above the system navigation bar on Android 15+.
+                            // Apply the inset outside the fixed keyboard height to preserve gesture space.
+                            .then(if (isFloating) Modifier else Modifier.navigationBarsPadding())
+                            .height(keyboardHeight),
                         color = MaterialTheme.colorScheme.surface,
                         contentColor = MaterialTheme.colorScheme.onSurface
                     ) {
