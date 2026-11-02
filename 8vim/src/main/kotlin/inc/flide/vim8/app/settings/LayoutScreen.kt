@@ -13,6 +13,8 @@ import arrow.core.some
 import inc.flide.vim8.R
 import inc.flide.vim8.app.availableLayouts
 import inc.flide.vim8.appPreferenceModel
+import inc.flide.vim8.datastore.model.observeAsState
+import androidx.compose.runtime.getValue
 import inc.flide.vim8.datastore.ui.Preference
 import inc.flide.vim8.datastore.ui.PreferenceGroup
 import inc.flide.vim8.ime.layout.CustomLayout
@@ -37,15 +39,36 @@ fun LayoutScreen() = Screen {
     val fileSelector = fileSelector()
 
     content {
+        val prefs by appPreferenceModel()
+        val primary by prefs.layout.primary.observeAsState()
+        val secondary by prefs.layout.secondary.observeAsState()
+
         PreferenceGroup {
             Dialog {
-                title = stringRes(R.string.select_preferred_keyboard_layout_dialog_title)
-                index = { availableLayouts.get()?.index ?: 0 }
+                title = stringRes(R.string.settings__layouts__primary__title)
+                index = { availableLayouts.get()?.indexOfLayout(primary) ?: 0 }
                 items = { availableLayouts.get()?.displayNames ?: emptyList() }
-                onConfirm { availableLayouts.get()?.selectLayout(it) }
+                onConfirm { availableLayouts.get()?.selectPreferredLayout(it, isPrimary = true) }
                 Preference(
-                    title = stringRes(R.string.settings__layouts__select__title),
-                    summary = stringRes(R.string.settings__layouts__select__summary),
+                    title = stringRes(R.string.settings__layouts__primary__title),
+                    summary = availableLayouts.get()?.displayNameFor(primary).orEmpty(),
+                    onClick = { show() },
+                    trailing = {
+                        Icon(
+                            Icons.AutoMirrored.Filled.KeyboardArrowRight,
+                            contentDescription = null
+                        )
+                    }
+                )
+            }
+            Dialog {
+                title = stringRes(R.string.settings__layouts__secondary__title)
+                index = { availableLayouts.get()?.indexOfLayout(secondary) ?: 0 }
+                items = { availableLayouts.get()?.displayNames ?: emptyList() }
+                onConfirm { availableLayouts.get()?.selectPreferredLayout(it, isPrimary = false) }
+                Preference(
+                    title = stringRes(R.string.settings__layouts__secondary__title),
+                    summary = availableLayouts.get()?.displayNameFor(secondary).orEmpty(),
                     onClick = { show() },
                     trailing = {
                         Icon(
