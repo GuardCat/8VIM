@@ -12,6 +12,19 @@ This is an **unofficial fork** of [8Vim](https://github.com/8VIM/8VIM), a gestur
 
 The debug build installs separately from the original 8Vim. This fork is not an official release of the upstream project.
 
+## Permanently signed APK (for sharing with friends)
+
+The [signed APK workflow](https://github.com/GuardCat/8VIM/actions/workflows/build-signed-apk.yaml) builds the distinct `8Vim Custom` app (`inc.flide.vi8.custom`) with a persistent signing certificate and incrementing build number. It can coexist with upstream 8Vim and with our debug build.
+
+To configure it, create a PKCS12 keystore locally using `keytool` with the **`8vim-custom`** alias. Never commit the key, password, or base64-encoded keystore. Back up the original keystore and password somewhere secure.
+
+Set these two **repository Actions secrets**:
+
+- `VIM8_RELEASE_KEYSTORE_BASE64`: unwrapped base64 of the keystore file (`base64 -w 0 8vim-release.jks`).
+- `VIM8_RELEASE_KEYSTORE_PASSWORD`: the keystore password (also used for the key password with PKCS12).
+
+Run **Build signed 8Vim Custom APK** from Actions and download `8vim-custom-signed-apk` under Artifacts. The workflow verifies the APK signature before uploading it. For public distribution, attach the built APK to a GitHub Release. Future signed builds using the **same keystore and alias** can update earlier signed builds in place. Previously installed debug builds are a different app and do not share data.
+
 ---
 
 ## Original 8Vim project
