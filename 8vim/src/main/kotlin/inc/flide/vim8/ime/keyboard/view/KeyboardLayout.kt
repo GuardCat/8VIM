@@ -70,6 +70,8 @@ fun RowScope.Sidebar() {
 
     val isVisible by prefs.keyboard.sidebar.isVisible.observeAsState()
     val keyboardLayoutMode by prefs.keyboard.layoutMode.mode.observeAsState()
+    val primaryLayout by prefs.layout.primary.observeAsState()
+    val secondaryLayout by prefs.layout.secondary.observeAsState()
 
     if (!isVisible) return
 
@@ -79,6 +81,19 @@ fun RowScope.Sidebar() {
     val state by keyboardManager.activeState.collectAsState()
 
     Column(modifier = Modifier.weight(1f)) {
+        ImageButton(
+            resourceId = R.drawable.ic_language,
+            description = stringRes(R.string.switch_between_languages_button_content_description),
+            onClick = {
+                val next = if (prefs.layout.current.get() == primaryLayout) {
+                    secondaryLayout
+                } else {
+                    primaryLayout
+                }
+                prefs.layout.current.set(next)
+            }
+        )
+
         ImageButton(
             resourceId = R.drawable.ic_emoji,
             description = stringRes(R.string.open_emoticon_keyboard_button_content_description),
